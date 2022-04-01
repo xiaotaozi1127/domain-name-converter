@@ -1,5 +1,6 @@
 package com.scdt.assignment.scdtjavaassignment.service;
 
+import com.scdt.assignment.scdtjavaassignment.exception.DomainNameNotFoundException;
 import com.scdt.assignment.scdtjavaassignment.repository.DomainNameRepository;
 import com.scdt.assignment.scdtjavaassignment.utils.NumberConverter;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,10 @@ public class DomainNameService {
     }
 
     public String decodeByShortDomainName(String shortDomainName) {
-        return domainNameRepository.decodeShortDomain(shortDomainName);
+        String domain = domainNameRepository.decodeShortDomain(shortDomainName);
+        if (domain == null) {
+            throw new DomainNameNotFoundException(shortDomainName);
+        }
+        return domain;
     }
 }

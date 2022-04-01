@@ -1,9 +1,11 @@
 package com.scdt.assignment.scdtjavaassignment;
 
+import com.scdt.assignment.scdtjavaassignment.exception.DomainNameNotFoundException;
 import com.scdt.assignment.scdtjavaassignment.repository.DomainNameRepository;
 import com.scdt.assignment.scdtjavaassignment.service.DomainNameService;
 import com.scdt.assignment.scdtjavaassignment.service.TokenGenerator;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -42,5 +44,13 @@ public class DomainNameServiceTest {
         when(domainNameRepository.decodeShortDomain(shortName)).thenReturn(longName);
         String decodedName = domainNameService.decodeByShortDomainName(shortName);
         Assertions.assertEquals(longName, decodedName);
+    }
+
+    @Test
+    public void should_throw_exception_if_short_domain_name_can_not_found() {
+        String shortDomainName = "t.cn/notfound";
+        when(domainNameRepository.decodeShortDomain(shortDomainName)).thenReturn(null);
+        Assertions.assertThrows(DomainNameNotFoundException.class,
+                ()-> domainNameService.decodeByShortDomainName(shortDomainName));
     }
 }

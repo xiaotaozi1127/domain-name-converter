@@ -52,4 +52,14 @@ public class DomainNameControllerTest {
         Assertions.assertNotNull(body);
         Assertions.assertEquals(longName, body);
     }
+
+    @Test
+    public void should_return_not_found_when_decode_not_existed_short_domain_name() {
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity("/domain/decode?shortName={shortName}",
+                String.class, "t.cn/notfound");
+        HttpStatus statusCode = responseEntity.getStatusCode();
+        Assertions.assertEquals(HttpStatus.NOT_FOUND, statusCode);
+        Assertions.assertEquals("Given short domain name: t.cn/notfound cannot be found",
+                responseEntity.getBody());
+    }
 }
