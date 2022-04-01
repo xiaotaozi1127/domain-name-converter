@@ -1,30 +1,29 @@
 package com.scdt.assignment.scdtjavaassignment.service;
 
+import com.scdt.assignment.scdtjavaassignment.repository.DomainNameRepository;
 import com.scdt.assignment.scdtjavaassignment.utils.NumberConverter;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class DomainNameService {
 
-    Map<String,String> domainMappings = new ConcurrentHashMap<>();
+    final DomainNameRepository domainNameRepository;
 
     final TokenGenerator tokenGenerator;
 
-    public DomainNameService(TokenGenerator tokenGenerator) {
+    public DomainNameService(DomainNameRepository domainNameRepository, TokenGenerator tokenGenerator) {
+        this.domainNameRepository = domainNameRepository;
         this.tokenGenerator = tokenGenerator;
     }
 
     public String encodeLongDomainName(String longDomainName) {
         int token = tokenGenerator.generateToken();
         String shortName = "t.cn/" + NumberConverter.from10baseTo62base(token);
-        domainMappings.put(shortName, longDomainName);
+        domainNameRepository.saveEncodedDomain(shortName, longDomainName);
         return shortName;
     }
 
     public String decodeByShortDomainName(String shortDomainName) {
-        return domainMappings.get(shortDomainName);
+        return domainNameRepository.decodeShortDomain(shortDomainName);
     }
 }

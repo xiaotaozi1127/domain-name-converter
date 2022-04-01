@@ -1,5 +1,6 @@
 package com.scdt.assignment.scdtjavaassignment;
 
+import com.scdt.assignment.scdtjavaassignment.repository.DomainNameRepository;
 import com.scdt.assignment.scdtjavaassignment.service.DomainNameService;
 import com.scdt.assignment.scdtjavaassignment.service.TokenGenerator;
 import org.junit.jupiter.api.Assertions;
@@ -18,17 +19,28 @@ public class DomainNameServiceTest {
     @Mock
     TokenGenerator tokenGenerator;
 
+    @Mock
+    DomainNameRepository domainNameRepository;
+
     @InjectMocks
     DomainNameService domainNameService;
 
     @ParameterizedTest
     @CsvSource({"0,0,https://www.baidu.com", "35,Z,https://www.weibo.com",
             "3650,ws,https://www.azure.com", "116918,UPm,https://www.aws.com"})
-    public void should_encode_long_domain_name_to_short_domain_name_and_decode_back(
+    public void should_encode_long_domain_name_to_short_domain_name(
             int token, String name, String longName) {
         when(tokenGenerator.generateToken()).thenReturn(token);
         String shortName = domainNameService.encodeLongDomainName(longName);
         Assertions.assertEquals("t.cn/" + name, shortName);
-        Assertions.assertEquals(longName, domainNameService.decodeByShortDomainName(shortName));
+    }
+
+    @ParameterizedTest
+    @CsvSource({"t.cn/0,https://www.baidu.com", "t.cn/Z,https://www.weibo.com",
+            "t.cn/ws,https://www.azure.com", "t.cn/UPm,https://www.aws.com"})
+    public void should_decode_short_domain_name_to_long_domain_name(String shortName, String longName) {
+        when(domainNameRepository.decodeShortDomain(shortName)).thenReturn(longName);
+        String decodedName = domainNameRepository.decodeShortDomain(shortName);
+        Assertions.assertEquals(longName, decodedName);
     }
 }
