@@ -40,7 +40,7 @@ public class DomainNameServiceTest {
             "t.cn/ws,https://www.azure.com", "t.cn/UPm,https://www.aws.com"})
     public void should_decode_short_domain_name_to_long_domain_name(String shortName, String longName) {
         when(domainNameRepository.decodeShortDomain(shortName)).thenReturn(longName);
-        String decodedName = domainNameRepository.decodeShortDomain(shortName);
+        String decodedName = domainNameService.decodeByShortDomainName(shortName);
         Assertions.assertEquals(longName, decodedName);
     }
 }
