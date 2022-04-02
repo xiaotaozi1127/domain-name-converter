@@ -1,4 +1,4 @@
-package com.scdt.assignment.scdtjavaassignment;
+package com.scdt.assignment.scdtjavaassignment.controller;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

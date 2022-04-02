@@ -10,6 +10,6 @@ public class SequenceTokenGenerator implements TokenGenerator {
     AtomicInteger atomicInteger = new AtomicInteger();
 
     public int generateToken() {
-        return atomicInteger.incrementAndGet();
+        return atomicInteger.getAndIncrement();
     }
 }

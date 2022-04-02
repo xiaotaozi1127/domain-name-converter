@@ -1,6 +1,5 @@
-package com.scdt.assignment.scdtjavaassignment;
+package com.scdt.assignment.scdtjavaassignment.utils;
 
-import com.scdt.assignment.scdtjavaassignment.utils.NumberConverter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
