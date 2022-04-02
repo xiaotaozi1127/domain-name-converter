@@ -1,18 +1,16 @@
 package com.scdt.assignment.scdtjavaassignment.service;
 
-import com.scdt.assignment.scdtjavaassignment.utils.NumberConverter;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SequenceShortDomainNameGenerator implements ShortDomainNameGenerator {
-    final TokenGenerator tokenGenerator;
+    final Base62ValueGenerator base62ValueGenerator;
 
-    public SequenceShortDomainNameGenerator(TokenGenerator tokenGenerator) {
-        this.tokenGenerator = tokenGenerator;
+    public SequenceShortDomainNameGenerator(Base62ValueGenerator generator) {
+        this.base62ValueGenerator = generator;
     }
 
     public String generateShortDomainName() {
-        int token = tokenGenerator.generateToken();
-        return "t.cn/" + NumberConverter.from10baseTo62base(token);
+        return "t.cn/" + base62ValueGenerator.generateBase62Value();
     }
 }
