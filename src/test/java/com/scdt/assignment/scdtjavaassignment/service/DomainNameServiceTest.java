@@ -5,8 +5,6 @@ import com.scdt.assignment.scdtjavaassignment.repository.DomainNameRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -26,30 +24,34 @@ public class DomainNameServiceTest {
     @InjectMocks
     DomainNameService domainNameService;
 
-    @ParameterizedTest
-    @CsvSource({"t.cn/0,https://www.baidu.com", "t.cn/Z,https://www.weibo.com",
-            "t.cn/ws,https://www.azure.com", "t.cn/UPm,https://www.aws.com"})
-    public void should_encode_long_domain_name_to_short_domain_name(
-             String shortName, String longName) {
+    @Test
+    public void should_encode_long_domain_name_to_short_domain_name() {
+        String shortName = "t.cn/ws";
         when(shortDomainNameGenerator.generateShortDomainName()).thenReturn(shortName);
-        String encodedName = domainNameService.encodeLongDomainName(longName);
-        Mockito.verify(domainNameRepository).saveEncodedDomain(shortName, longName);
+
+        String longDomainName = "https://www.azure.com";
+        String encodedName = domainNameService.encodeLongDomainName(longDomainName);
+
+        Mockito.verify(domainNameRepository).saveEncodedDomain(shortName, longDomainName);
         Assertions.assertEquals(shortName, encodedName);
     }
 
-    @ParameterizedTest
-    @CsvSource({"t.cn/0,https://www.baidu.com", "t.cn/Z,https://www.weibo.com",
-            "t.cn/ws,https://www.azure.com", "t.cn/UPm,https://www.aws.com"})
-    public void should_decode_short_domain_name_to_long_domain_name(String shortName, String longName) {
-        when(domainNameRepository.decodeShortDomain(shortName)).thenReturn(longName);
-        String decodedName = domainNameService.decodeByShortDomainName(shortName);
-        Assertions.assertEquals(longName, decodedName);
+    @Test
+    public void should_decode_short_domain_name_to_long_domain_name() {
+        String shortDomain = "t.cn/UPm";
+        String longDomain = "https://www.aws.com";
+        when(domainNameRepository.decodeShortDomain(shortDomain)).thenReturn(longDomain);
+
+        String decodedName = domainNameService.decodeByShortDomainName(shortDomain);
+
+        Assertions.assertEquals(longDomain, decodedName);
     }
 
     @Test
     public void should_throw_exception_if_short_domain_name_can_not_found() {
         String shortDomainName = "t.cn/notfound";
         when(domainNameRepository.decodeShortDomain(shortDomainName)).thenReturn(null);
+
         Assertions.assertThrows(DomainNameNotFoundException.class,
                 ()-> domainNameService.decodeByShortDomainName(shortDomainName));
     }

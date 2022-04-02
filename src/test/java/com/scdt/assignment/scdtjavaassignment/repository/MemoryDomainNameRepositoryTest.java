@@ -1,6 +1,5 @@
 package com.scdt.assignment.scdtjavaassignment.repository;
 
-import com.scdt.assignment.scdtjavaassignment.repository.MemoryDomainNameRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
