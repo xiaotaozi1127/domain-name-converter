@@ -21,7 +21,11 @@ The app is responsible for domain name conversion, i.e. it can convert long doma
 After starting this application, you can access its swagger ui at http://localhost:8888/swagger-ui and you will see all the api endpoints. You can easily try the api in this page.
 
 ## Test
-You can run `./gradlew test` to run all tests. After the test is complete. This is the current test coverage report at `document/test_coverage_report.png` with 93% coverage.
+You can run `./gradlew test` to run all tests. After the test is complete, the test report can be viewed at `build/jacoco/test/index.html`. Check out the current test coverage report at `document/test_coverage_report.png` with 93% coverage.
+
+We also run a performance test for our api endpoint using jmeter, starting a thread group with 1000 threads in 1 second.
+- test `domain/encode` Its throughput is 998.0/sec and average response time is 10 ms. Check the result at `document/aggregate_report_for_encode_api.png`
+- test `domain/decode` Its throughput is 838.2/sec and average response time is 136 ms. Check the result at `document/aggregate_report_for_encode_api.png`
 
 ## Design document
-Refer to the documentation in the `document` folder for more information on application design.
+Refer to `document/design-document.md` for more information on application design.
