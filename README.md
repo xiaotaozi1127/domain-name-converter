@@ -1,22 +1,27 @@
 # domain-name-converter
-This application is responsible for domain name conversion, which means it can convert long domain name to short domain name, also can decode short domain name back to long domain name. If you want to know more about long domain name and short domain name, you can refer to google.
+The app is responsible for domain name conversion, i.e. it can convert long domain names to short domain names, and can also decode short domain names back to long domain names. If you want to know more about long and short domains, you can refer to google.
 
 ## API endpoints
-- convert a long domain name to short domain name.
+- Convert a long domain name to short domain name
 
-   when pass long domain name in the parameter, it can return the encoded short domain name
+   When passing the long domain name in the parameter, you can return the encoded short domain name. 
+   
+    API example:
    `curl --location --request GET 'localhost:8888/domain/encode?longName={longName}'`
 
-- locate the long domain name given a short domain name
+- Return the long domain name given a short domain name
 
-   when pass encoded short domain name in the parameter, it can return the original long domain name. if the decoded short domain name cannot be found in system, it will return NOT_FOUND status code.
+  When passing the short domain name in the parameter, you can return the original long domain name. If the decoded short domain name cannot be found in the system, a NOT_FOUND status code will be returned.
+
+  API example:
 `curl --location --request GET 'localhost:8888/domain/decode?shortName={shortName}'`
 
 ## Try it out
-After you start this application, you can visit its swagger ui at [here](http://localhost:8888/swagger-ui), and you will see all the api endpoints. You can easily try the api in this page.
+
+After starting this application, you can access its swagger ui at http://localhost:8888/swagger-ui and you will see all the api endpoints. You can easily try the api in this page.
 
 ## Test
-You can run `./gradlew test` to run all the tests. After test finished, you can get the test report at `build/jacoco/test/index.html`
+You can run `./gradlew test` to run all tests. After the test is complete, you can get the test report at `build/jacoco/test/index.html`
 
 ## Design document
-Refer to the document under `document` folder, you can get more information about how the application is designed.
+Refer to the documentation in the `document` folder for more information on application design.
