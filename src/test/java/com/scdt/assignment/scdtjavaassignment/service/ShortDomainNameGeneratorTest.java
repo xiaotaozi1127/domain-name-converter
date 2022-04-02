@@ -25,7 +25,7 @@ public class ShortDomainNameGeneratorTest {
 
         String shortDomainName = shortDomainNameGenerator.generateShortDomainName();
 
-        Assertions.assertEquals("t.cn/NM6D", shortDomainName);
+        Assertions.assertEquals("http://t.cn/NM6D", shortDomainName);
         Mockito.verify(base62ValueGenerator).generateBase62Value();
     }
 }

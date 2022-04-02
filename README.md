@@ -21,7 +21,7 @@ The app is responsible for domain name conversion, i.e. it can convert long doma
 After starting this application, you can access its swagger ui at http://localhost:8888/swagger-ui and you will see all the api endpoints. You can easily try the api in this page.
 
 ## Test
-You can run `./gradlew test` to run all tests. After the test is complete, you can get the test report at `build/jacoco/test/index.html`
+You can run `./gradlew test` to run all tests. After the test is complete. This is the current test coverage report at `document/test_coverage_report.png` with 93% coverage.
 
 ## Design document
 Refer to the documentation in the `document` folder for more information on application design.

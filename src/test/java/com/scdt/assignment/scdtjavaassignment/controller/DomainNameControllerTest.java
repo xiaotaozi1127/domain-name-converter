@@ -28,13 +28,13 @@ public class DomainNameControllerTest {
         String body1 = responseEntity1.getBody();
         Assertions.assertEquals(HttpStatus.OK, statusCode1);
         Assertions.assertNotNull(body1);
-        Assertions.assertTrue(body1.startsWith("t.cn/"));
+        Assertions.assertTrue(body1.startsWith("http://t.cn/"));
 
         HttpStatus statusCode2 = responseEntity2.getStatusCode();
         String body2 = responseEntity2.getBody();
         Assertions.assertEquals(HttpStatus.OK, statusCode2);
         Assertions.assertNotNull(body2);
-        Assertions.assertTrue(body2.startsWith("t.cn/"));
+        Assertions.assertTrue(body2.startsWith("http://t.cn/"));
 
         Assertions.assertNotEquals(body1, body2);
     }

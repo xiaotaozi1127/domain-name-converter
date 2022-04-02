@@ -11,6 +11,6 @@ public class SequenceShortDomainNameGenerator implements ShortDomainNameGenerato
     }
 
     public String generateShortDomainName() {
-        return "t.cn/" + base62ValueGenerator.generateBase62Value();
+        return "http://t.cn/" + base62ValueGenerator.generateBase62Value();
     }
 }
